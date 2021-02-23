@@ -1,0 +1,14 @@
+[package]
+name = "actix-proxy"
+version = "0.1.0"
+authors = ["jofas <jonas@fc-web.de>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+actix-web = { version = "^3.3.2", features = ["openssl"] }
+actix-rt = "^1.1.1"
+openssl = { version = "^0.10.32", features = ["v110"] }
+async-trait = "^0.1.42"
+serde = { version = "^1.0.123", features = ["derive"] }
