@@ -1,5 +1,5 @@
-use actix_web::{HttpResponse, dev};
 use actix_web::client::ClientResponse;
+use actix_web::{dev, HttpResponse};
 
 use async_trait::async_trait;
 
@@ -9,7 +9,9 @@ pub trait IntoHttpResponse {
 }
 
 #[async_trait(?Send)]
-impl IntoHttpResponse for ClientResponse<dev::Decompress<dev::Payload>> {
+impl IntoHttpResponse
+  for ClientResponse<dev::Decompress<dev::Payload>>
+{
   async fn into_http_response(mut self) -> HttpResponse {
     let mut response = HttpResponse::build(self.status());
 
@@ -22,12 +24,12 @@ impl IntoHttpResponse for ClientResponse<dev::Decompress<dev::Payload>> {
 }
 
 pub mod util {
-  use actix_web::{get, HttpResponse, web};
-  use actix_web::http::StatusCode;
   use actix_web::client::{Client, SendRequestError};
   use actix_web::error::PayloadError;
+  use actix_web::http::StatusCode;
+  use actix_web::{get, web, HttpResponse};
 
-  use serde::{Serialize};
+  use serde::Serialize;
 
   use super::IntoHttpResponse;
 
@@ -42,11 +44,7 @@ pub mod util {
   ) -> actix_web::Result<HttpResponse, Error> {
     let url = format!("https://www.google.com/{}", url);
 
-    Ok(client.get(&url)
-      .send()
-      .await?
-      .into_http_response()
-      .await)
+    Ok(client.get(&url).send().await?.into_http_response().await)
   }
 
   #[derive(Serialize, Debug)]
@@ -56,8 +54,10 @@ pub mod util {
   }
 
   impl std::fmt::Display for Error {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result
-    {
+    fn fmt(
+      &self,
+      f: &mut std::fmt::Formatter<'_>,
+    ) -> std::fmt::Result {
       write!(f, "{:?}", self)
     }
   }
@@ -76,8 +76,7 @@ pub mod util {
 
   impl actix_web::error::ResponseError for Error {
     fn error_response(&self) -> HttpResponse {
-      HttpResponse::build(self.status_code())
-        .json(self)
+      HttpResponse::build(self.status_code()).json(self)
     }
 
     fn status_code(&self) -> StatusCode {

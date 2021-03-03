@@ -6,10 +6,8 @@ use futures::stream::TryStreamExt;
 
 #[actix_rt::test]
 async fn test_google_proxy() {
-  let mut app = test::init_service(
-    App::new().configure(google_config)
-  )
-  .await;
+  let mut app =
+    test::init_service(App::new().configure(google_config)).await;
 
   let req = test::TestRequest::get().uri("/").to_request();
 
