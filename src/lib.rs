@@ -1,26 +1,23 @@
 use actix_web::{HttpResponse, dev};
-use actix_web::error::PayloadError;
 use actix_web::client::ClientResponse;
 
 use async_trait::async_trait;
 
 #[async_trait(?Send)]
 pub trait IntoHttpResponse {
-  async fn into_http_response(&mut self) -> Result<HttpResponse, PayloadError>;
+  async fn into_http_response(mut self) -> HttpResponse;
 }
 
 #[async_trait(?Send)]
 impl IntoHttpResponse for ClientResponse<dev::Decompress<dev::Payload>> {
-  async fn into_http_response(&mut self) -> Result<HttpResponse, PayloadError> {
+  async fn into_http_response(mut self) -> HttpResponse {
     let mut response = HttpResponse::build(self.status());
 
     self.headers().iter().for_each(|(k, v)| {
       response.set_header(k, v.clone());
     });
 
-    let body = self.body().await?;
-
-    Ok(response.body(body))
+    response.streaming(self)
   }
 }
 
@@ -34,15 +31,22 @@ pub mod util {
 
   use super::IntoHttpResponse;
 
-  #[get("/")]
+  pub fn google_config(cfg: &mut web::ServiceConfig) {
+    cfg.data(Client::default()).service(google_proxy);
+  }
+
+  #[get("/{url:.*}")]
   pub async fn google_proxy(
+    web::Path((url,)): web::Path<(String,)>,
     client: web::Data<Client>,
   ) -> actix_web::Result<HttpResponse, Error> {
-    Ok(client.get("https://www.google.com/")
+    let url = format!("https://www.google.com/{}", url);
+
+    Ok(client.get(&url)
       .send()
       .await?
       .into_http_response()
-      .await?)
+      .await)
   }
 
   #[derive(Serialize, Debug)]
