@@ -10,6 +10,4 @@ edition = "2018"
 actix-web = { version = "^3.3.2", features = ["openssl"] }
 actix-rt = "^1.1.1"
 openssl = { version = "^0.10.32", features = ["v110"] }
-async-trait = "^0.1.42"
-serde = { version = "^1.0.123", features = ["derive"] }
 futures = "^0.3.13"
