@@ -20,6 +20,8 @@ service back to the client.
 TODO
 ----
 
+* remove util::Error (only SendRequestError left)
+
 * documentation
 
 * pipeline
