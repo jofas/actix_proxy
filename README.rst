@@ -1,7 +1,7 @@
 actix-proxy
 ===========
 
-A rust libary for the ``actix-web`` framework. Sometimes you want to
+A rust library for the ``actix-web`` framework. Sometimes you want to
 implement a gateway or proxy which makes a request to some remote
 service and simply forwards it to the client that made the request to
 the proxy (in case you do not wish to or cannot return a redirection
