@@ -17,6 +17,7 @@ With this trait, all you need to do is call ``.into_http_response()``
 on your ``ClientResponse`` to forward the response from the remote
 service back to the client.
 
+
 TODO
 ----
 
@@ -27,5 +28,3 @@ TODO
 * pipeline
 
 * codecov
-
-* publish
