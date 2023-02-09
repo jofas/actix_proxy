@@ -38,5 +38,5 @@ async fn test_proxy() {
   let bytes = resp.into_body();
   let bytes = body::to_bytes(bytes).await.unwrap();
 
-  assert!(bytes.len() > 0);
+  assert!(!bytes.is_empty());
 }
