@@ -4,7 +4,7 @@
 [![Codecov](https://codecov.io/gh/jofas/actix_proxy/branch/main/graph/badge.svg?token=69YKZ1JIBK)](https://codecov.io/gh/jofas/actix_proxy)
 [![Latest Version](https://img.shields.io/crates/v/actix-proxy.svg)](https://crates.io/crates/actix-proxy)
 [![Downloads](https://img.shields.io/crates/d/actix-proxy?label=downloads)](https://crates.io/crates/actix-proxy)
-[![Docs](https://img.shields.io/badge/library_docs-latest-blue.svg)](https://docs.rs/actix-proxy/latest/actix-proxy)
+[![Docs](https://img.shields.io/badge/docs-latest-blue.svg)](https://docs.rs/actix-proxy/latest/actix-proxy)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 A rust library for the [`actix-web`](https://actix.rs/) framework. 
