@@ -1,9 +1,26 @@
+#![doc = include_str!("../README.md")]
+
 use actix_web::client::ClientResponse;
 use actix_web::{dev, HttpResponse};
 
+/// Trait for converting a [`ClientResponse`] into a [`HttpResponse`].
+///
 pub trait IntoHttpResponse {
+  /// Creates a [`HttpResponse`] from `self`.
+  ///
   fn into_http_response(self) -> HttpResponse;
 
+  /// Wraps the [`HttpResponse`] created by [`into_http_response`]
+  /// in a `Result`.
+  ///
+  /// # Errors
+  ///
+  /// Because [`into_http_response`] is infallible, this method is,
+  /// too.
+  /// So calling this method never fails and never returns an `Err`.
+  ///
+  /// [`into_http_response`]: Self::into_http_response
+  ///
   fn into_wrapped_http_response<E>(self) -> Result<HttpResponse, E>
   where
     Self: Sized,
@@ -22,30 +39,6 @@ impl IntoHttpResponse
       response.set_header(k, v.clone());
     });
 
-    // TODO: other stuff than header and status (e.g. extensions or
-    // stuff like that)
-
     response.streaming(self)
-  }
-}
-
-pub mod util {
-  use actix_web::client::{Client, SendRequestError};
-  use actix_web::{get, web, HttpResponse};
-
-  use super::IntoHttpResponse;
-
-  pub fn google_config(cfg: &mut web::ServiceConfig) {
-    cfg.data(Client::default()).service(google_proxy);
-  }
-
-  #[get("/{url:.*}")]
-  pub async fn google_proxy(
-    web::Path((url,)): web::Path<(String,)>,
-    client: web::Data<Client>,
-  ) -> actix_web::Result<HttpResponse, SendRequestError> {
-    let url = format!("https://www.google.com/{}", url);
-
-    client.get(&url).send().await?.into_wrapped_http_response()
   }
 }
