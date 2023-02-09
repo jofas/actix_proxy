@@ -5,7 +5,8 @@ authors = ["jofas <jonas@fc-web.de>"]
 edition = "2021"
 license = "MIT"
 readme = "README.md"
-description = "Trait for converting actix_web::client::ClientResponse to actix_web::HttpResponse"
+description = "Glue code for using awc with actix-web"
+keywords = ["awc", "actix-web", "actix"]
 repository = "https://github.com/jofas/actix_proxy"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
