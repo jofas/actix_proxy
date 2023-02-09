@@ -31,12 +31,12 @@ async fn test_proxy() {
 
   let req = test::TestRequest::get().uri("/search?q=a").to_request();
 
-  let resp = test::call_service(&mut app, req).await;
+  let resp = test::call_service(&app, req).await;
 
   assert!(resp.status().is_success());
 
   let bytes = resp.into_body();
   let bytes = body::to_bytes(bytes).await.unwrap();
 
-  assert!(bytes.len() > 0);
+  assert!(!bytes.is_empty());
 }
