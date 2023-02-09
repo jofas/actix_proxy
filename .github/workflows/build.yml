@@ -26,7 +26,7 @@ jobs:
       - name: Apply cleanup
         uses: EndBug/add-and-commit@v9
         with:
-          message: 'applying code formatting, lint fixes and toc creation'
+          message: 'applying code formatting and lint fixes'
           cwd: repo
       - name: Fail build if clippy finds any error or warning
         run: |
