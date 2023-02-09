@@ -1,0 +1,44 @@
+name: Build
+on: [push]
+permissions:
+  contents: write
+jobs:
+  CleanupAndTest:
+    runs-on: ubuntu-latest
+    container:
+      image: rust:latest
+    steps:
+      - name: Add cargo features
+        run: rustup component add rustfmt clippy
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          path: repo
+      - name: Load cached dependencies
+        uses: Swatinem/rust-cache@v2
+        with:
+          key: clippy
+      - name: Fmt + clippy
+        run: |
+          cd repo
+          cargo clippy --all-features --all-targets --fix
+          cargo fmt
+      - name: Toc
+        run: |
+          curl https://raw.githubusercontent.com/ekalinin/github-markdown-toc/master/gh-md-toc -o gh-md-toc
+          chmod a+x gh-md-toc
+          ./gh-md-toc --insert --no-backup --hide-footer --skip-header repo/README.md
+          rm gh-md-toc
+      - name: Apply cleanup
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: 'applying code formatting, lint fixes and toc creation'
+          cwd: repo
+      - name: Fail build if clippy finds any error or warning
+        run: |
+          cd repo
+          cargo clippy --all-features --all-targets -- -D warnings -D clippy::pedantic
+      - name: Run test suite
+        run: |
+          cd repo
+          cargo test
