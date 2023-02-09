@@ -26,8 +26,7 @@ async fn proxy(
 
 #[actix_web::test]
 async fn test_proxy() {
-  let app =
-    test::init_service(App::new().configure(config)).await;
+  let app = test::init_service(App::new().configure(config)).await;
 
   let req = test::TestRequest::get().uri("/search?q=a").to_request();
 
