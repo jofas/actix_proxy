@@ -12,18 +12,18 @@ Glues together the [`actix-web`] and [`awc`] crates.
 
 This library provides the `IntoHttpResponse` trait which transforms
 a [`awc::ClientResponse`] into a [`actix_web::HttpResponse`] and
-the `SendRequestError` type bridging the gap between awc's 
-[`SendRequestError`] and actix-web, by implementing 
+the `SendRequestError` type bridging the gap between `awc`'s 
+[`SendRequestError`] and `actix-web`, by implementing 
 [`actix_web::ResponseError`].
 
 Sometimes you want to implement a gateway or proxy, which makes a 
 request to some remote service and forwards the response to the 
 client that made the request.
-actix-web integrates with the [`awc::Client`] HTTP client. 
+`actix-web` integrates with the [`awc::Client`] HTTP client. 
 Unfortunately, [`awc::ClientResponse`], the response type of the 
 client request, does not implement the [`Responder`] trait.
 Because of that, you can't return [`awc::ClientResponse`] from an
-endpoint of your actix-web server.
+endpoint of your `actix-web` server.
 This makes it hard to forward the response from the remote location
 through an endpoint of the proxy, requiring you to transform the
 response into a type that implements [`Responder`].
