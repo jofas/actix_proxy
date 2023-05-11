@@ -13,8 +13,9 @@ repository = "https://github.com/jofas/actix_proxy"
 
 [dependencies]
 actix-web = { version = "^4.3.0" }
-awc = { version = "^3.1.0", features = ["openssl"] }
-openssl = { version = "^0.10.32" }
+awc = { version = "^3.1.0" }
 
 [dev-dependencies]
+awc = { version = "^3.1.0", features = ["openssl"] }
 futures-util = "^0.3.28"
+openssl = { version = "^0.10.32" }
