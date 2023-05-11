@@ -48,16 +48,16 @@ use actix_proxy::{IntoHttpResponse, SendRequestError};
 
 #[get("/{url:.*}")]
 async fn proxy(
-  path: web::Path<(String,)>,
-  client: web::Data<Client>,
+    path: web::Path<(String,)>,
+    client: web::Data<Client>,
 ) -> Result<HttpResponse, SendRequestError> {
-  let (url,) = path.into_inner();
+    let (url,) = path.into_inner();
 
-  let url = format!("https://duckduckgo.com/{url}");
+    let url = format!("https://duckduckgo.com/{url}");
 
-  // here we use `IntoHttpResponse` to return the request to 
-  // duckduckgo back to the client that called this endpoint
-  Ok(client.get(&url).send().await?.into_http_response())
+    // here we use `IntoHttpResponse` to return the request to 
+    // duckduckgo back to the client that called this endpoint
+    Ok(client.get(&url).send().await?.into_http_response())
 }
 ```
 
@@ -73,16 +73,16 @@ use actix_proxy::{IntoHttpResponse, SendRequestError};
 
 #[get("/{url:.*}")]
 async fn proxy(
-  path: web::Path<(String,)>,
-  client: web::Data<Client>,
+    path: web::Path<(String,)>,
+    client: web::Data<Client>,
 ) -> Result<HttpResponse, SendRequestError> {
-  let (url,) = path.into_inner();
+    let (url,) = path.into_inner();
 
-  let url = format!("https://duckduckgo.com/{url}");
+    let url = format!("https://duckduckgo.com/{url}");
 
-  // here we use `IntoHttpResponse` to return the request to 
-  // duckduckgo back to the client that called this endpoint
-  client.get(&url).send().await?.into_wrapped_http_response()
+    // here we use `IntoHttpResponse` to return the request to 
+    // duckduckgo back to the client that called this endpoint
+    client.get(&url).send().await?.into_wrapped_http_response()
 }
 ```
 
