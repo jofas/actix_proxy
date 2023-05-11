@@ -1,5 +1,11 @@
 name: Build
-on: [push]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 permissions:
   contents: write
 jobs:
@@ -16,8 +22,6 @@ jobs:
           path: repo
       - name: Load cached dependencies
         uses: Swatinem/rust-cache@v2
-        with:
-          key: clippy
       - name: Fmt + clippy
         run: |
           cd repo
