@@ -1,7 +1,7 @@
 # actix-proxy
 
 [![Build Status](https://github.com/jofas/actix_proxy/actions/workflows/build.yml/badge.svg)](https://github.com/jofas/actix_proxy/actions/workflows/build.yml)
-[![Codecov](https://codecov.io/gh/jofas/actix_proxy/branch/main/graph/badge.svg?token=69YKZ1JIBK)](https://codecov.io/gh/jofas/actix_proxy)
+[![Codecov](https://codecov.io/gh/jofas/actix_proxy/branch/master/graph/badge.svg?token=69YKZ1JIBK)](https://codecov.io/gh/jofas/actix_proxy)
 [![Latest Version](https://img.shields.io/crates/v/actix-proxy.svg)](https://crates.io/crates/actix-proxy)
 [![Downloads](https://img.shields.io/crates/d/actix-proxy?label=downloads)](https://crates.io/crates/actix-proxy)
 [![Docs](https://img.shields.io/badge/docs-latest-blue.svg)](https://docs.rs/actix-proxy/latest/actix_proxy/)
