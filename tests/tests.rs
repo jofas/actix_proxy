@@ -1,4 +1,4 @@
-use actix_web::{body, body::MessageBody, test, App};
+use actix_web::{body, body::MessageBody, test, App, HttpRequest};
 use actix_web::{get, web, HttpResponse};
 
 use awc::Client;
@@ -17,14 +17,18 @@ fn config(cfg: &mut web::ServiceConfig) {
 
 #[get("/proxy/{url:.*}")]
 async fn proxy(
+    req: HttpRequest,
     path: web::Path<(String,)>,
     client: web::Data<Client>,
 ) -> actix_web::Result<HttpResponse, SendRequestError> {
-    let (url,) = path.into_inner();
-
-    let url = format!("https://duckduckgo.com/{url}");
-
-    client.get(&url).send().await?.into_wrapped_http_response()
+    client
+        .request_from(
+            format!("https://duckduckgo.com/{}", path.into_inner().0),
+            req.head(),
+        )
+        .send()
+        .await?
+        .into_wrapped_http_response()
 }
 
 #[get("/streaming")]
