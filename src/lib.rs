@@ -81,9 +81,9 @@ impl IntoHttpResponse for ClientResponse<dev::Decompress<dev::Payload>> {
     fn into_http_response(self) -> HttpResponse {
         let mut response = HttpResponse::build(self.status());
 
-        self.headers().into_iter().for_each(|(k, v)| {
-            response.insert_header((k, v));
-        });
+        for header in self.headers() {
+            response.append_header(header);
+        }
 
         response.streaming(self)
     }
