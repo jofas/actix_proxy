@@ -16,6 +16,6 @@ actix-web = "4"
 awc = "3"
 
 [dev-dependencies]
-awc = { version = "^3.4.0", features = ["openssl"] }
-futures-util = "^0.3.30"
-openssl = { version = "^0.10.63" }
+awc = { version = "3", features = ["openssl"] }
+futures-util = "0.3"
+openssl = "0.10"
